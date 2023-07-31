@@ -1,0 +1,7 @@
+.custom-layout-width{
+    max-width: 800px;
+}
+
+.btn.fixedwidth{
+    min-width: 100px;
+}

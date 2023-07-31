@@ -1,0 +1,21 @@
+<form action="" method="post">
+    <div class="form-floating mb-3">
+       <input type="text" class="form-control" id="title" name="title" placeholder="Title" 
+       value="<%= typeof old !== 'undefined' ?  old.title: '' %>">
+       <label for="title">Teendő</label>
+    </div>
+
+    <div class="form-floating mb-3">
+       <textarea class="form-control" id="description" name="description" placeholder="Description"><%= typeof old !== 'undefined' ?  old.description: '' %></textarea>
+       <label for="description">Leírás</label>
+    </div>
+    
+    <div class="form-floating mb-3">
+       <input type="datetime-local" class="form-control" id="deadline" name="deadline" placeholder="Deadline" value="<%= typeof old !== 'undefined' ?  old.deadline: '' %>">
+       <label for="title">Határidő</label>
+    </div>
+    
+    <div class="mt-3 text-center">
+       <button class="btn btn-outline-success fixedwidth">Mentés</button> <a class="btn btn-outline-danger fixedwidth" href="/">Vissza</a>
+    </div>
+</form>

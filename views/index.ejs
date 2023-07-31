@@ -6,8 +6,17 @@
 <body>
     <%- include('parts/nav') %>
     
-    <div class="container mt-5">
-        
+    <% if(typeof errors !== 'undefined' && errors.length > 0 ) { %>
+        <div class="container custom-layout-width mt-5 alert alert-danger">
+            <% errors.forEach( err => { %>
+                <li><%= err.msg %></li>
+            <% } ) %>
+        </div>
+    <%} %>
+
+    <div class="container custom-layout-width mt-5">
+        <h3 class="mb-4"><%= title%></h3>
+        <%- include(`pages/${page}`) %>
     </div>
 
     <%- include('parts/scripts') %>
