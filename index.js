@@ -10,6 +10,7 @@ const mongoose = require("mongoose");
 const Todo = require("./models/Todo");
 
 const ejs = require("ejs");
+const { ObjectId } = require("mongodb");
 app.set("view engine", ejs);
 app.set("views", path.join(__dirname, "/views"));
 app.use(express.static(`${__dirname}/public`));
@@ -30,12 +31,31 @@ async function main() {
   await mongoose.connect("mongodb://127.0.0.1:27017/mongoose_todo");
 
   app.get("/", async (req, res) => {
-    const todos = await Todo.find({}).sort([['deadline', 'asc']]);
-    res.render("index.ejs", {
-      title: "Bejegyzések",
+    
+    const dbquery = {};
+
+    let titleInfix = '';
+
+    if( req.query.completed === '1' ) {
+      titleInfix = 'elvégzett: ';
+      dbquery.completed = true;
+    }
+    else if( req.query.completed === '0' ) {  
+      titleInfix = 'várakozó: ';
+      dbquery.completed = false;
+    }
+
+    const todos = await Todo.find( dbquery ).sort([['deadline', 'asc']]);
+
+    const response = {
+      title: `Bejegyzések ( ${titleInfix} ${todos.length} )`,
       page: "list",
       todos: todos,
-    });
+    }
+
+    if( todos.length === 0 )
+      response.errors = [{msg: 'Nincs megjeleníthető elem!'}]
+      res.render("index.ejs", response );
   });
 
   app.get("/add", (req, res) => {
@@ -81,6 +101,14 @@ async function main() {
       res.redirect("back");
     }
   );
+
+  app.post('/setstatus', async(req, res)=>{
+    const doc = await Todo.findById (req.body._id);
+    doc.completed = req.query.new === '0' ? false : true;
+    await doc.save();
+    req.flash('success', 'Sikeres módosítás!')
+    res.redirect('back')
+  })  
 
   app.listen(3000, () => {
     console.log("running: localhost:3000");

@@ -1,0 +1,21 @@
+<form action="" method="post" class="card mb-3">
+    <div class="card-header"> 
+        <% if( todo.completed ) { %> 
+            <span class="badge rounded-pill text-bg-success">Elvégezve</span>
+        <% } else { %>
+            <span class="badge rounded-pill text-bg-danger">Teendő</span>
+        <% } %>    
+        <%= todo.title%></div>
+    <div class="card-body">
+      <h5 class="card-title"><%= new Date(todo.deadline).toLocaleString('hu-HU', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})%></h5>
+      <p class="card-text"><%- todo.description.replace(/\n/g, "<br />\n")%></p>
+      <div class="text-end">
+        <% if( todo.completed ) { %>
+            <button class="btn btn-outline-danger fixedwidth" formaction="/setstatus?new=0">Elvégzendővé állít</button>
+        <% } else { %>  
+            <button class="btn btn-outline-success fixedwidth" formaction="/setstatus?new=1">ELvégzettre állít</button>
+        <% } %>
+        <input type="hidden" name="_id" value="<%= todo._id%>">
+      </div>
+    </div>
+  </form>
