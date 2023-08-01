@@ -28,9 +28,9 @@ main().catch((err) => console.log(err));
 
 async function main() {
   await mongoose.connect("mongodb://127.0.0.1:27017/mongoose_todo");
-  const todos = await Todo.find();
 
-  app.get("/", (req, res) => {
+  app.get("/", async (req, res) => {
+    const todos = await Todo.find({}).sort([['deadline', 'asc']]);
     res.render("index.ejs", {
       title: "Bejegyzések",
       page: "list",
