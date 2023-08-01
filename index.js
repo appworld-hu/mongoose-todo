@@ -44,6 +44,7 @@ async function main() {
       page: "add",
       errors: req.flash("errors"),
       old: req.flash("old")[0],
+      success: req.flash("success"),
     });
   });
 
@@ -67,15 +68,17 @@ async function main() {
         "A teljesítés határideje csak érvényes, jövőbeli dátum lehet!"
       ),
 
-    (req, res) => {
+    async (req, res) => {
       const validation = validationResult(req);
       if (validation.isEmpty()) {
-        res.end("ok");
+        const todo = new Todo(matchedData(req));
+        await todo.save();
+        req.flash('success', 'Sikeres mentés!');
       } else {
         req.flash("errors", validation.errors);
         req.flash("old", req.body);
-        res.redirect("back");
       }
+      res.redirect("back");
     }
   );
 
