@@ -5,3 +5,7 @@
 .btn.fixedwidth{
     min-width: 150px;
 }
+
+.active{
+    text-decoration: underline;
+}
