@@ -28,7 +28,7 @@ app.use(flash());
 main().catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/mongoose_todo");
+  await mongoose.connect("mongodb://localhost:27017/mongoose_todo");
 
   app.get("/", async (req, res) => {
     
