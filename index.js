@@ -4,6 +4,7 @@ const { body, validationResult, matchedData } = require("express-validator");
 const flash = require("express-flash");
 const app = express();
 const path = require("path");
+require('dotenv').config() 
 
 const mongoose = require("mongoose");
 
@@ -25,16 +26,17 @@ app.use(
 );
 app.use(flash());
 
-main().catch((err) => console.log(err));
+main().catch((err) => console.log(err)); 
 
 async function main() {
-  await mongoose.connect("mongodb://localhost:27017/mongoose_todo");
+  // await mongoose.connect("mongodb://127.0.0.1:27017/mongoose_todo");
+  await mongoose.connect(process.env.MONGOURL);
 
   app.get("/", async (req, res) => {
     
     const dbquery = {};
 
-    let titleInfix = '';
+    let titleInfix = ''; 
 
     if( req.query.completed === '1' ) {
       titleInfix = 'elvégzett: ';
@@ -110,7 +112,7 @@ async function main() {
     res.redirect('back')
   })  
  //3000
-  app.listen(3000, () => {
-    console.log("running: localhost:3000");
+  app.listen(process.env.PORT, () => {
+    console.log("running: localhost "+process.env.PORT);
   });
 }
