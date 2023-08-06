@@ -12,8 +12,9 @@
       <div class="text-end">
         <% if( todo.completed ) { %>
             <button class="btn btn-outline-danger fixedwidth" formaction="/setstatus?new=0">Elvégzendővé állít</button>
-        <% } else { %>  
-            <button class="btn btn-outline-success fixedwidth" formaction="/setstatus?new=1">ELvégzettre állít</button>
+        <% } else { %>
+            <a class="btn btn-outline-warning" href="/edit?item=<%= todo._id%>">Szerkeszt</a>  
+            <button class="btn btn-outline-success fixedwidth" formaction="/setstatus?new=1">Elvégzettre állít</button>
         <% } %>
         <input type="hidden" name="_id" value="<%= todo._id%>">
       </div>

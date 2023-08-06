@@ -4,7 +4,7 @@
     <%- include('parts/meta') %>
 </head>
 <body>
-    <%- include('parts/nav') %>
+    <%- include('parts/nav', { user: typeof user !== 'undefined' ? user : undefined }) %>
     
     <% if(typeof errors !== 'undefined' && errors.length > 0 ) { %>
         <div class="container custom-layout-width mt-5 alert alert-danger">

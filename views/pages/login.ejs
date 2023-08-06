@@ -1,0 +1,18 @@
+<form action="" method="post">
+    <div class="form-floating mb-3">
+       <input type="text" class="form-control" id="email" name="email" placeholder="Email" 
+       value="<%= typeof old !== 'undefined' ?  old.email: '' %>">
+       <label for="email">E-mail címed</label>
+    </div>
+
+    <div class="form-floating mb-3">
+      <input type="password" class="form-control" id="password" name="password" placeholder="Password" 
+      value="">
+      <label for="email">Jelszó</label>
+   </div>
+    
+    <div class="mt-3 text-center">
+     
+       <button class="btn btn-outline-success fixedwidth">Belépés</button> 
+    </div>
+</form>

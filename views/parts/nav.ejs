@@ -19,10 +19,13 @@
                 <a class="nav-link" href="/add">Új bejegyzés</a>
               </li>
             </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Kulcsszó" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Keresés</button>
-            </form>
+            <ul class="navbar-nav">
+              <li class="nav-item  h-100">
+                  <% if( typeof user !== 'undefined' ) { %> 
+                      <a href="/logout" onclick="return confirm('Kilépés?')" class="btn btn-outline-success">Belépve: <%= user.name %> [Kilépés]</a>
+                  <% } %> 
+              </li>
+            </ul>
       </div>
     </div>
   </nav>
